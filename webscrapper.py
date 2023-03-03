@@ -4,7 +4,8 @@ import json
 import csv
 # smiles list to store the smiles of the compounds from the chembl website
 smiles = []
-for i in range (1 , 10 ) :
+counter = 0 
+for i in range (1 , 5 ) :
 #iterating through the chembl website to get the smiles of the compounds
     url = "https://ebi.ac.uk/chembl/compound_report_card/CHEMBL" + str(i)
     content = requests.get(url)
@@ -24,7 +25,9 @@ for i in range (1 , 10 ) :
     url = "https://ebi.ac.uk/chembl/compound_report_card/CHEMBL"
     a = { "smiles" : str(data['smiles'][0]).encode('utf-8').strip()}
 # appending the smiles of the compounds to the smiles list    
-    smiles.append(a)
+    if (len(a) != 0):
+        smiles.append(a)
+        counter+=1
 
 # writing the smiles of the compounds to the csv file
 with open ( "smiles1.csv" , mode = "w") as smiles_file:
@@ -33,4 +36,5 @@ with open ( "smiles1.csv" , mode = "w") as smiles_file:
     for row in smiles:
         writer.writerow(row)
 smiles_file.close()    
+print ("Total number of smiles strings extracted are: " + str(counter))
 
