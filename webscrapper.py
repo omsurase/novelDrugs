@@ -19,15 +19,15 @@ for i in range (1 , 10 ) :
         continue 
 # data present in form of json, so we need to convert it to python dictionary. 
     data = json.loads(table.text)
-    print(str(data['smiles'][0]))
+    print(str(data['smiles'][0]).encode('utf-8').strip())
 # restoring the url to get the smiles of the next compound
     url = "https://ebi.ac.uk/chembl/compound_report_card/CHEMBL"
-    a = { "smiles" : str(data['smiles'][0])}
+    a = { "smiles" : str(data['smiles'][0]).encode('utf-8').strip()}
 # appending the smiles of the compounds to the smiles list    
     smiles.append(a)
 
 # writing the smiles of the compounds to the csv file
-with open ( "smiles.csv" , mode = "w") as smiles_file:
+with open ( "smiles1.csv" , mode = "w") as smiles_file:
     fieldnames = smiles[ 0 ].keys()
     writer = csv.DictWriter(smiles_file, fieldnames=fieldnames)
     for row in smiles:
